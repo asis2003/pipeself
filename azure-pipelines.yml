@@ -1,0 +1,19 @@
+trigger:
+  - main
+
+pool:
+  name: MySelfHostedPool
+  demands:
+    - agent.os -equals Windows
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '18.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install
+    npm run test
+    npm start
+  displayName: 'Build and Run App'
